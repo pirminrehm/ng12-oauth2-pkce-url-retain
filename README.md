@@ -3,6 +3,10 @@
 - using [angular-oauth2-oidc](https://www.npmjs.com/package/angular-oauth2-oidc)
 - retaining the inital requested URL
 
+## How to start
+
+Configure `auth.config.ts` with your identity provider and run `ng serve`.
+
 ## How it works
 
 In `app.component.ts` the `tryToLogin()` method from the `AuthService` is called in the constructor.
