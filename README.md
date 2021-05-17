@@ -1,27 +1,15 @@
-# Ng12
+# Angular 12 OAuth 2.0 PKCE Code Flow Example including Retaining the URL
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.0.
+- using [angular-oauth2-oidc](https://www.npmjs.com/package/angular-oauth2-oidc)
+- retaining the inital requested URL
 
-## Development server
+## How it works
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+In `app.component.ts` the `tryToLogin()` method from the `AuthService` is called in the constructor.
+In `tryToLogin()` the `OAuthService` is used to check if the login is possible.
+If not, the code flow is initiated.
+In addition, the currently requested page is saved to localStorage via the `AuthGuard`.
+Also, the guard prevents the requested page from beeing loadet and redirects the user to the login page.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+If, after the redirect or a reload, the login is possible, the localStorage is read for a previously stored URL.
+If there is one stored, the user is forwarded to it and thus the initally requested URL is loaded.

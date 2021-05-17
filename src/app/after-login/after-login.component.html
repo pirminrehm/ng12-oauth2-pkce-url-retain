@@ -1,0 +1,14 @@
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let item of tokenObject | keyvalue">
+    <tr>
+      <td>{{ item.key }}</td>
+      <td>{{ item.value }}</td>
+    </tr>
+  </tbody>
+</table>
