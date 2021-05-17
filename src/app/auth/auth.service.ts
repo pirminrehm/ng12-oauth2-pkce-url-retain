@@ -16,8 +16,7 @@ export class AuthService {
 
   async tryToLogin() {
     this.oauthService.configure(authCodeFlowConfig);
-    await this.oauthService.loadDiscoveryDocumentAndTryLogin();
-    this.oauthService.setupAutomaticSilentRefresh();
+    console.log(await this.oauthService.loadDiscoveryDocumentAndTryLogin());
 
     if (!this.oauthService.hasValidAccessToken()) {
       this._hasValidToken.next(false);
@@ -25,6 +24,7 @@ export class AuthService {
       return;
     }
 
+    this.oauthService.setupAutomaticSilentRefresh();
     this._hasValidToken.next(true);
 
     const url = localStorage.getItem(LAST_ROUTE) as string;
@@ -32,8 +32,9 @@ export class AuthService {
 
     if (!url || url == '/') {
       this.router.navigate(['after-login']);
-    } else {
-      this.router.navigateByUrl(url);
+      return;
     }
+
+    this.router.navigateByUrl(url);
   }
 }
